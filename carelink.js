@@ -15,16 +15,20 @@ if (USE_EU) {
   var carelinkServerAddress = "carelink.minimed.com";
 }
 
-var CARELINK_SECURITY_URL = 'https://' + carelinkServerAddress + '/patient/j_security_check';
-var CARELINK_AFTER_LOGIN_URL = 'https://' + carelinkServerAddress + '/patient/main/login.do';
-var CARELINK_JSON_BASE_URL = 'https://' + carelinkServerAddress + '/patient/connect/ConnectViewerServlet?cpSerialNumber=NONE&msgType=last24hours&requestTime=';
-var CARELINK_LOGIN_COOKIE = '_WL_AUTHCOOKIE_JSESSIONID';
 
 var DEFAULT_OAUTH = process.env['USE_PRE_2020_OAUTH_EU'] == '1' ? false : true;
 if (DEFAULT_OAUTH && USE_EU) {
+  var carlinkSecurityServer = 'mdtlogin.medtronic.com';
   CARELINK_SECURITY_URL = 'https://mdtlogin.medtronic.com/mmcl/auth/oauth/v2/authorize/login';
-  CARELINK_JSON_BASE_URL = 'https://carelink.minimed.eu/patient/connect/data?cpSerialNumber=NONE&msgType=last24hours&requestTime';
+  CARELINK_JSON_BASE_URL = 'https://carelink.minimed.eu/patient/connect/data?cpSerialNumber=NONE&msgType=last24hours&requestTime=';
+} else {
+  var carlinkSecurityServer = carelinkServerAddress;
+  var CARELINK_JSON_BASE_URL = 'https://' + carelinkServerAddress + '/patient/connect/ConnectViewerServlet?cpSerialNumber=NONE&msgType=last24hours&requestTime=';
 }
+
+var CARELINK_SECURITY_URL = 'https://' + carlinkSecurityServer + '/patient/j_security_check';
+var CARELINK_AFTER_LOGIN_URL = 'https://' + carelinkServerAddress + '/patient/main/login.do';
+var CARELINK_LOGIN_COOKIE = '_WL_AUTHCOOKIE_JSESSIONID';
 
 var carelinkJsonUrlNow = function() {
   return CARELINK_JSON_BASE_URL + Date.now();
