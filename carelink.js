@@ -23,10 +23,10 @@ if (DEFAULT_OAUTH && USE_EU) {
   CARELINK_JSON_BASE_URL = 'https://carelink.minimed.eu/patient/connect/data?cpSerialNumber=NONE&msgType=last24hours&requestTime=';
 } else {
   var carlinkSecurityServer = carelinkServerAddress;
+  var CARELINK_SECURITY_URL = 'https://' + carlinkSecurityServer + '/patient/j_security_check';
   var CARELINK_JSON_BASE_URL = 'https://' + carelinkServerAddress + '/patient/connect/ConnectViewerServlet?cpSerialNumber=NONE&msgType=last24hours&requestTime=';
 }
 
-var CARELINK_SECURITY_URL = 'https://' + carlinkSecurityServer + '/patient/j_security_check';
 var CARELINK_AFTER_LOGIN_URL = 'https://' + carelinkServerAddress + '/patient/main/login.do';
 var CARELINK_LOGIN_COOKIE = '_WL_AUTHCOOKIE_JSESSIONID';
 
